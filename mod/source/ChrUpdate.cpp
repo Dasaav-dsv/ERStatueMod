@@ -16,7 +16,7 @@ void onHkbChrUpdate(void* instance, hkHkbCharacter* hkbCharacter) {
 	bool isPlayerBlinking = getBlinkState();
 	bool isDead = pChrIns->isDead();
 	bool isInvisible = !pChrIns->isVisible() || isPlayerBlinking;
-	float statueSpeed = isPlayerBlinking ? ENEMY_STATUE_SPEED_BLINK : ENEMY_STATUE_SPEED;
+	float statueSpeed = isPlayerBlinking && GLOBAL_INI.blinkFastEnemies ? GLOBAL_INI.enemySpeedBlink : GLOBAL_INI.enemySpeed;
 	pChrIns->setSpeed(isInvisible && !isDead ? statueSpeed : 1.0f);
 	updateState = isInvisible || isDead;
 }

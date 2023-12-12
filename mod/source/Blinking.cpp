@@ -46,16 +46,17 @@ void setBlinkState(bool newState) {
 	blinkState = newState;
 }
 
-constexpr float getBlinkTimerInterval() {
-	return BLINK_TIMER_INTERVAL;
+float getBlinkTimerInterval() {
+	return GLOBAL_INI.blinkTimerInterval;
 }
 
-constexpr float getBlinkStartTime() {
-	return BLINK_START_TIME;
+float getBlinkStartTime() {
+	return GLOBAL_INI.blinkStartTime;
 }
 
 constexpr float getBlinkTimespan() {
-	float span = BLINK_END_TIME - BLINK_START_TIME;
+	float span = GLOBAL_INI.blinkEndTime - GLOBAL_INI.blinkStartTime;
+	if (!GLOBAL_INI.blinkLongerHurt) return span;
 	auto WorldChrManImp = *GLOBAL_GAMEREPOSITORY.globals.WorldChrManImp;
 	if (!WorldChrManImp) return span;
 	auto player = GLOBAL_GAMEREPOSITORY.functions.fnWorldChrManImp.getMainPlayerIns(WorldChrManImp);
@@ -69,7 +70,7 @@ constexpr float getBlinkTimespan() {
 }
 
 constexpr float getBlinkEndTime() {
-	return BLINK_START_TIME + getBlinkTimespan();
+	return GLOBAL_INI.blinkStartTime + getBlinkTimespan();
 }
 
 float getBlinkLength(float timer) {
@@ -89,8 +90,8 @@ bool isUseHeldPlayer() {
 	float dT = (*GLOBAL_GAMEREPOSITORY.globals.CSFlipper)->dT();
 	if (player->isUseHeldPlayer()) holdTime += dT;
 	else holdTime = 0.0f;
-	if (holdTime > BLINK_HOLD_MAX_THRESHOLD + getBlinkTimespan()) holdTime = 0.0f;
-	return holdTime >= BLINK_HOLD_MIN_THRESHOLD && holdTime < BLINK_HOLD_MAX_THRESHOLD;
+	if (holdTime > GLOBAL_INI.blinkHoldMax + getBlinkTimespan()) holdTime = 0.0f;
+	return holdTime >= GLOBAL_INI.blinkHoldMin && holdTime < GLOBAL_INI.blinkHoldMax;
 }
 
 float brightnessOf(float blinkLength) {

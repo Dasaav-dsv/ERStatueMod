@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="dll\source\alloc.cpp" />
     <ClCompile Include="dll\source\dllmain.cpp" />
+    <ClCompile Include="dll\source\ini\ini.cpp" />
     <ClCompile Include="dll\source\logger.cpp" />
     <ClCompile Include="mod\source\Blinking.cpp" />
     <ClCompile Include="mod\source\GameRepository.cpp" />
@@ -161,7 +162,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dll\include\alloc.h" />
+    <ClInclude Include="dll\include\ini\defaults.h" />
     <ClInclude Include="dll\include\dllmain.h" />
+    <ClInclude Include="dll\include\ini\ini.h" />
+    <ClInclude Include="dll\include\ini\lineparser.h" />
     <ClInclude Include="dll\include\logger.h" />
     <ClInclude Include="mod\include\Blinking.h" />
     <ClInclude Include="mod\include\CSTypes.h" />
@@ -184,6 +188,7 @@
     <ClInclude Include="other\UniHook\PE.h" />
     <ClInclude Include="other\UniHook\RTTIScanner.h" />
     <ClInclude Include="other\UniHook\VFTHook.h" />
+    <ClInclude Include="thirdparty\mINI\ini.h" />
     <ClInclude Include="thirdparty\zydis\include\Zydis\Decoder.h" />
     <ClInclude Include="thirdparty\zydis\include\Zydis\DecoderTypes.h" />
     <ClInclude Include="thirdparty\zydis\include\Zydis\Defines.h" />

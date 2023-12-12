@@ -36,6 +36,9 @@
     <ClCompile Include="mod\source\Blinking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dll\source\ini\ini.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dll\include\dllmain.h">
@@ -258,6 +261,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mod\include\Blinking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdparty\mINI\ini.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dll\include\ini\lineparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dll\include\ini\ini.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dll\include\ini\defaults.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

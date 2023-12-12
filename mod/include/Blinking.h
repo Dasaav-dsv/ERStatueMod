@@ -2,14 +2,9 @@
 
 #include <cmath>
 
+#include "ini/ini.h"
+
 #include "GameRepository.h"
-
-#define BLINK_TIMER_INTERVAL 5.0f
-#define BLINK_START_TIME 2.2f
-#define BLINK_END_TIME 3.0f
-
-#define BLINK_HOLD_MIN_THRESHOLD 0.1666f
-#define BLINK_HOLD_MAX_THRESHOLD 3.5f
 
 struct Brightness;
 
