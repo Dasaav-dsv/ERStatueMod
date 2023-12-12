@@ -246,7 +246,7 @@ public:
 			section->name = reinterpret_cast<const char*>(base);
 			section->size = *reinterpret_cast<int*>(base + 0x08); // virtual size of section
 			section->start = *reinterpret_cast<int*>(base + 0x0C); // virtual address of section
-			section->end = section->start.as() + section->size;
+			section->end = section->start.as() + static_cast<int>(section->size);
 
 			PEParser::sectionMap->addSection(section);
 

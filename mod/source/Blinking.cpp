@@ -33,7 +33,7 @@ bool isPlayerDead() {
 	if (!WorldChrManImp) return true;
 	auto player = GLOBAL_GAMEREPOSITORY.functions.fnWorldChrManImp.getMainPlayerIns(WorldChrManImp);
 	if (!player) return true;
-	float hp = player->getHp();
+	int hp = player->getHp();
 	return hp <= 0;
 }
 
@@ -61,8 +61,8 @@ constexpr float getBlinkTimespan() {
 	if (!WorldChrManImp) return span;
 	auto player = GLOBAL_GAMEREPOSITORY.functions.fnWorldChrManImp.getMainPlayerIns(WorldChrManImp);
 	if (!player) return span;
-	float maxHp = player->getMaxHp();
-	float currentHp = player->getHp();
+	float maxHp = static_cast<float>(player->getMaxHp());
+	float currentHp = static_cast<float>(player->getHp());
 	float ratio = currentHp / maxHp;
 	span /= (ratio * ratio + 1.0f);
 	span *= 2.0f;
