@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <utility>
+#include <cmath>
 
 #define PLAYER_HANDLE 0xFFFFFFFF15A00000ull
 #define TORRENT_HANDLE 0xFFFFFFFF15C00000ull
@@ -70,6 +71,11 @@ public:
 		return maxHp;
 	}
 
+	bool isAlive() {
+		int hp = this->getHp();
+		return hp > 0;
+	}
+
 	bool isDead() {
 		int hp = this->getHp();
 		return hp <= 0;
@@ -109,6 +115,31 @@ public:
 		if (!ChrBehData) return nullptr;
 		hkHkbCharacter* hkbCharacter = *reinterpret_cast<hkHkbCharacter**>(reinterpret_cast<uintptr_t>(ChrBehData) + 0x30);
 		return hkbCharacter;
+	}
+
+	void* getCSChrPhysicsModule() {
+		void* CSChrModules = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(this) + 0x190);
+		if (!CSChrModules) return nullptr;
+		void* CSChrPhysicsModule = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(CSChrModules) + 0x68);
+		return CSChrPhysicsModule;
+	}
+
+	float distanceTo(CSChrIns* other) {
+		auto thisPhysicsModule = this->getCSChrPhysicsModule();
+		auto otherPhysicsModule = other->getCSChrPhysicsModule();
+		if (!thisPhysicsModule or !otherPhysicsModule) return 9999.0f;
+		float* thisPos = reinterpret_cast<float*>(reinterpret_cast<uintptr_t>(thisPhysicsModule) + 0x70);
+		float* otherPos = reinterpret_cast<float*>(reinterpret_cast<uintptr_t>(otherPhysicsModule) + 0x70);
+		float x = otherPos[0] - thisPos[0];
+		float y = otherPos[1] - thisPos[1];
+		float z = otherPos[2] - thisPos[2];
+		float distance = std::sqrtf(x * x + y * y + z * z);
+		return distance;
+	}
+
+	bool isCloseTo(CSChrIns* other) {
+		if (this == other) return false;
+		return this->distanceTo(other) < 7.5f;
 	}
 };
 

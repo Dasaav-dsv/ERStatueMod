@@ -17,12 +17,27 @@ bool isPlayerInCombat() {
 	return GLOBAL_GAMEREPOSITORY.functions.fnCSSoundImp.isPlayerInCombat(CSSoundImp);
 }
 
-bool isPlayerTargeted() {
+bool isEnemy(CSChrIns* player, CSChrIns* other) {
+	if (!player || other == player) return false;
+	bool isFriend = GLOBAL_GAMEREPOSITORY.functions.fnCSTeamType.getRelationship(player, other, 0, 1, 0);
+	bool isEnemy = GLOBAL_GAMEREPOSITORY.functions.fnCSTeamType.getRelationship(player, other, 1, 0, 0);
+	bool isAlive = other->isAlive();
+	return !isFriend && isEnemy && isAlive;
+}
+
+bool isPlayerSensed() {
 	auto WorldChrManImp = *GLOBAL_GAMEREPOSITORY.globals.WorldChrManImp;
 	if (!WorldChrManImp) return false;
+	auto player = GLOBAL_GAMEREPOSITORY.functions.fnWorldChrManImp.getMainPlayerIns(WorldChrManImp);
+	if (!player) return false;
 	auto [cur, end] = WorldChrManImp->getChrInsVector();
 	while (cur != end) {
-		if ((*cur)->isTargetingPlayer()) return true;
+		auto chr = *cur;
+		if (isEnemy(player, chr)) {
+			bool targetsPlayer = chr->isTargetingPlayer();
+			bool isNearPlayer = chr->isCloseTo(player);
+			if (targetsPlayer || isNearPlayer) return true;
+		}
 		++cur;
 	}
 	return false;
@@ -38,8 +53,7 @@ bool isPlayerDead() {
 }
 
 bool getBlinkState() {
-	bool blinkCondition = isPlayerInCombat() || isPlayerTargeted();
-	return blinkState && blinkCondition;
+	return blinkState;
 }
 
 void setBlinkState(bool newState) {
@@ -108,7 +122,7 @@ float getBlinkBrightness(float timer) {
 
 float updateBlinkTimer(float blinkTimerInterval = getBlinkTimerInterval()) {
 	static float timer = 0.0f;
-	bool blinkCondition = isPlayerInCombat() || isPlayerTargeted();
+	bool blinkCondition = isPlayerInCombat() || isPlayerSensed();
 	if (isUseHeldPlayer() && blinkCondition) {
 		timer = getBlinkStartTime();
 	}
