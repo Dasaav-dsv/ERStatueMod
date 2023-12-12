@@ -8,8 +8,9 @@ void onHkbChrUpdate(void* instance, hkHkbCharacter* hkbCharacter) {
 	auto pChrIns = hkbCharacter->getChrIns();
 	if (!pChrIns) return;
 	bool& updateState = hkbCharacter->getHkbBehGraph()->getUpdateState();
+	bool isFriend = GLOBAL_GAMEREPOSITORY.functions.fnCSTeamType.getRelationship(player, pChrIns, 0, 1, 0);
 	bool isEnemy = GLOBAL_GAMEREPOSITORY.functions.fnCSTeamType.getRelationship(player, pChrIns, 1, 0, 0);
-	if (!isEnemy) {
+	if (isFriend || !isEnemy) {
 		updateState = true;
 		return;
 	}
