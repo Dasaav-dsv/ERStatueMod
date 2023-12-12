@@ -7,7 +7,7 @@ ERStatueIni::ERStatueIni() :
 
 	blinkTimerInterval(IniParseLine<float>(*this->ini, "[BLINKING]", "Blink Interval", BLINK_TIMER_INTERVAL)),
 	blinkStartTime(IniParseLine<float>(*this->ini, "[BLINKING]", "Blink Start Time", BLINK_START_TIME)),
-	blinkEndTime(IniParseLine<float>(*this->ini, "[BLINKING]", "Blink Ent Time", BLINK_END_TIME)),
+	blinkEndTime(IniParseLine<float>(*this->ini, "[BLINKING]", "Blink End Time", BLINK_END_TIME)),
 
 	blinkHoldMin(IniParseLine<float>(*this->ini, "[HOLD INTERACT BLINK]", "Hold Start Time", BLINK_HOLD_MIN_THRESHOLD)),
 	blinkHoldMax(IniParseLine<float>(*this->ini, "[HOLD INTERACT BLINK]", "Hold End Time", BLINK_HOLD_MAX_THRESHOLD)),
