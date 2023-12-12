@@ -2,6 +2,7 @@
 
 #include <string>
 
+#define MINI_CASE_SENSITIVE
 #include "mINI/ini.h"
 
 template <typename T>
