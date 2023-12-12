@@ -13,9 +13,19 @@ void onHkbChrUpdate(void* instance, hkHkbCharacter* hkbCharacter) {
 		updateState = true;
 		return;
 	}
-	bool isBlinking = getBlinkState();
-	bool isInvisible = !pChrIns->isVisible() || pChrIns->isDead() || isBlinking;
-	float statueSpeed = isBlinking ? ENEMY_STATUE_SPEED_BLINK : ENEMY_STATUE_SPEED;
-	pChrIns->setSpeed(isInvisible ? statueSpeed : 1.0f);
-	updateState = isInvisible;
+	bool isPlayerBlinking = getBlinkState();
+	bool isDead = pChrIns->isDead();
+	bool isInvisible = !pChrIns->isVisible() || isPlayerBlinking;
+	float statueSpeed = isPlayerBlinking ? ENEMY_STATUE_SPEED_BLINK : ENEMY_STATUE_SPEED;
+	pChrIns->setSpeed(isInvisible && !isDead ? statueSpeed : 1.0f);
+	updateState = isInvisible || isDead;
+}
+
+void onGetMaxTurnSpeed(CSChrActionFlagModule* instance) {
+	auto owner = instance->getOwner();
+	auto hkbCharacter = owner->getHkbCharacter();
+	if (!hkbCharacter) return;
+	bool updateState = hkbCharacter->getHkbBehGraph()->getUpdateState();
+	float& maxTurnSpeed = instance->maxTurnSpeed();
+	if (!updateState) maxTurnSpeed = 0.0f;
 }

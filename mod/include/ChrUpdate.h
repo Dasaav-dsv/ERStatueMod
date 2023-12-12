@@ -11,3 +11,4 @@
 #define ENEMY_STATUE_SPEED_BLINK 4.0f
 
 extern void onHkbChrUpdate(void* instance, hkHkbCharacter* hkbCharacter);
+extern void onGetMaxTurnSpeed(CSChrActionFlagModule* instance);

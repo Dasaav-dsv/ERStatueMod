@@ -31,6 +31,8 @@ public:
 	using FnIsPlayerInCombat = bool(*)(CSSoundImp*);
 };
 
+class hkHkbCharacter;
+
 class CSChrIns {
 public:
 	bool isPlayerOrTorrent() {
@@ -96,6 +98,30 @@ public:
 		if (!CSChrActionRequestModule) return false;
 		auto flags = *reinterpret_cast<uint8_t*>(reinterpret_cast<uintptr_t>(CSChrActionRequestModule) + 0x10);
 		return (flags >> 4) & 1;
+	}
+
+	hkHkbCharacter* getHkbCharacter() {
+		void* CSChrModules = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(this) + 0x190);
+		if (!CSChrModules) return nullptr;
+		void* CSChrBehModule = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(CSChrModules) + 0x28);
+		if (!CSChrBehModule) return nullptr;
+		void* ChrBehData = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(CSChrBehModule) + 0x10);
+		if (!ChrBehData) return nullptr;
+		hkHkbCharacter* hkbCharacter = *reinterpret_cast<hkHkbCharacter**>(reinterpret_cast<uintptr_t>(ChrBehData) + 0x30);
+		return hkbCharacter;
+	}
+};
+
+class CSChrActionFlagModule {
+public:
+	using FnGetMaxTurnSpeed = float(*)(CSChrActionFlagModule*);
+
+	CSChrIns* getOwner() {
+		return *reinterpret_cast<CSChrIns**>(reinterpret_cast<uintptr_t>(this) + 0x8);
+	}
+
+	float& maxTurnSpeed() {
+		return *reinterpret_cast<float*>(reinterpret_cast<uintptr_t>(this) + 0x84);
 	}
 };
 

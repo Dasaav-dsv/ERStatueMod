@@ -180,11 +180,6 @@ private:
 	static inline std::unordered_map<std::string, std::unique_ptr<RTTI>> classRTTI{};
 	static inline std::unique_ptr<SectionData> sectionData{};
 
-	// REX.W lea reg1,[rip]
-	// REX.W mov [reg2],reg1
-	const __m128i signature = _mm_setr_epi8(0x48, 0x8D, 0x05, 0x0, 0x0, 0x0, 0x0, 0x48, 0x89, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0);
-	const __m128i bitmask = _mm_setr_epi8(0b00000100, 0, 0b00111000, -1, -1, -1, -1, 0b00000101, 0, 0b00111111, -1, -1, -1, -1, -1, -1);
-
 	bool setSectionData() {
 		RTTIScanner::sectionData.reset();
 

@@ -26,6 +26,7 @@ GameRepository::GameRepository() noexcept {
 		functions.fnWorldChrManImp.getInstance = reinterpret_cast<WorldChrManImp::FnGetInstance>(this->find(WORLDCHRMANIMP_GETINSTANCE_FUNCTION_SIGNATURE));
 		functions.fnWorldChrManImp.getMainPlayerIns = reinterpret_cast<WorldChrManImp::FnGetMainPlayerIns>(this->find(WORLDCHRMANIMP_GETPLAYERINS_FUNCTION_SIGNATURE));
 		functions.fnCSSoundImp.isPlayerInCombat = reinterpret_cast<CSSoundImp::FnIsPlayerInCombat>(this->find(CSSOUNDIMP_ISPLAYERINCOMBAT_FUNCTION_SIGNATURE));
+		functions.fnCSChrActionFlagModule.getMaxTurnSpeed = reinterpret_cast<CSChrActionFlagModule::FnGetMaxTurnSpeed>(this->find(CSCHRACTIONFLAGMODULE_GETMAXTURNSPEED_FUNCTION_SIGNATURE));
 		functions.fnCSTeamType.getRelationship = reinterpret_cast<CSTeamType::FnGetRelationship>(this->find(CSTEAMTYPE_GETRELATIONSHIP_FUNCTION_SIGNATURE));
 	}
 }

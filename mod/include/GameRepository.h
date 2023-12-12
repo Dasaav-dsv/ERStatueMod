@@ -43,6 +43,10 @@ class GameRepository {
 			CSSoundImp::FnIsPlayerInCombat isPlayerInCombat;
 		} fnCSSoundImp;
 
+		struct FnCSChrActionFlagModule {
+			CSChrActionFlagModule::FnGetMaxTurnSpeed getMaxTurnSpeed;
+		} fnCSChrActionFlagModule;
+
 		struct FnCSTeamType {
 			CSTeamType::FnGetRelationship getRelationship;
 		} fnCSTeamType;
