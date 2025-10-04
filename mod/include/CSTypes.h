@@ -43,14 +43,14 @@ public:
 
 	bool isTargetingPlayer() {
 		if (this->isPlayerOrTorrent()) return false;
-		void* CSChrModules = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(this) + 0x190);
-		if (!CSChrModules) return false;
-		void* CSChrAiModule = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(CSChrModules) + 0x38);
-		if (!CSChrAiModule) return false;
-		void* ChrAiData = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(CSChrAiModule) + 0x18);
-		if (!ChrAiData) return false;
-		auto tgtHandle = *reinterpret_cast<uint64_t*>(reinterpret_cast<uintptr_t>(ChrAiData) + 0x158);
-		return tgtHandle == PLAYER_HANDLE || tgtHandle == TORRENT_HANDLE;
+		void* ChrCtrl = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(this) + 0x58);
+		if (!ChrCtrl) return false;
+		void* ComManipulator = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(ChrCtrl) + 0x18);
+		if (!ComManipulator) return false;
+		void* ChrAI = *reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(ComManipulator) + 0xC0);
+		if (!ChrAI) return false;
+		auto ChrLockOnTgt = *reinterpret_cast<uint64_t*>(reinterpret_cast<uintptr_t>(ChrAI) + 0xC988);
+		return ChrLockOnTgt == PLAYER_HANDLE || ChrLockOnTgt == TORRENT_HANDLE;
 	}
 
 	int getHp() {
