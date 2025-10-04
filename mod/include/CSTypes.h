@@ -4,8 +4,8 @@
 #include <utility>
 #include <cmath>
 
-#define PLAYER_HANDLE 0xFFFFFFFF15A00000ull
-#define TORRENT_HANDLE 0xFFFFFFFF15C00000ull
+#define PLAYER_HANDLE 0xFFFFFFFF16F00000ull
+#define TORRENT_HANDLE 0xFFFFFFFF17100000ull
 
 class CSChrIns;
 
@@ -15,15 +15,15 @@ public:
 	using FnGetMainPlayerIns = CSChrIns*(*)(WorldChrManImp*);
 
 	auto getChrInsVector() {
-		return std::pair(*reinterpret_cast<CSChrIns***>(reinterpret_cast<uintptr_t>(this) + 0x1F1B0), 
-			*reinterpret_cast<CSChrIns***>(reinterpret_cast<uintptr_t>(this) + 0x1F1B8));
+		return std::pair(*reinterpret_cast<CSChrIns***>(reinterpret_cast<uintptr_t>(this) + 0x1F1B8), 
+			*reinterpret_cast<CSChrIns***>(reinterpret_cast<uintptr_t>(this) + 0x1F1C0));
 	}
 };
 
 class CSFlipper {
 public:
 	float dT() {
-		return *reinterpret_cast<float*>(reinterpret_cast<uintptr_t>(this) + 0x270);
+		return *reinterpret_cast<float*>(reinterpret_cast<uintptr_t>(this) + 0x268);
 	}
 };
 
